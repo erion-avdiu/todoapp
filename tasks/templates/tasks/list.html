@@ -1,0 +1,44 @@
+<html>
+	<head>
+		<title>Todo App</title>
+		<style>
+			h1{
+				text-align: center;
+				font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+				background-color: antiquewhite;
+			}
+			.tasks form{
+				text-align: center;
+				margin-top: 50px;
+			}
+			.items {
+				text-align: center;
+			}
+			.items a{
+				text-decoration: none;
+			}
+
+		</style>
+	</head>
+<div class="tasks">
+	<h1>ToDo App</h1>
+<form action="/" method="post">
+    {% csrf_token %}
+    {{ form.title }}
+    <input type="submit" value="Create Task">
+</form>
+    {% for task in tasks %}
+    <div class="items">
+        <a href="{% url 'tasks:update_task' task.id %}">Update</a>
+        <a href="{% url 'tasks:delete' task.id %}">Delete</a>
+
+        {% if task.complete == True %}
+        <!--p>{{ task }}</p-->
+        <strike>{{ task }}</strike>
+        {% else %}
+        <span>{{ task }}</span>
+        {% endif %}
+    </div>
+    {% endfor %}
+</div>
+</html>
